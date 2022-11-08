@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+<body>
+   <!-- metodo que retorna los mensajes enviados desde el server -->
+   {% with messages = get_flashed_messages() %}
+   {% if messages %}
+   {% for message in messages %}
+      <p>{{message}}</p>
+   {% endfor %}
+   {% endif %}
+   {% endwith %}
+   <form action="/add_contact" method="POST">
+      <input type="text" name='nombre' placeholder="Nombre " value=""/>
+      <input type="text" name='apellidos' placeholder="Apellidos " value=""/>
+      <input type="number" name='telefono' placeholder="Teléfono " value=""/>
+      <input type="email" name='email' placeholder="Email " value=""/>
+      <button type="submit"> Insertar </button>
+   </form>
+
+   <table>
+      <thead>
+         <tr>
+            <td>Nombre</td>
+            <td>Apellidos</td>
+            <td>Telefono</td>
+            <td>Email</td>
+            <td>opciones</td>
+         </tr>
+      </thead>
+      <tbody>
+         {% for contact in contacts %}
+            <tr>
+               <td>{{contact[1]}}</td>
+               <td>{{contact[2]}}</td>
+               <td>{{contact[3]}}</td>
+               <td>{{contact[4]}}</td>
+               <td>
+                  <a href='/edit/{{contact.0}}'>edit</a>
+                  <a href='/delete/{{contact.0}}'>borrar</a>
+               </td>
+            </tr>
+         {% endfor%}
+      </tbody>
+   </table>
+
+
+   
+</body>
+</html>
